@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://3.36.28.63:3306/ATTENDANCE?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: gsmobile!@#
+  jpa:
+    hibernate:
+      ddl-auto: none # 운영에는 create 하면 안됨 >서버 재구동 시 모두 없어지므로..
+    properties:
+      hibernate:
+        format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # Gmail SMTP 설정
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: deogus.gsitm@gmail.com
+    password: sueqauhzjzygvjte  #  2022년 5월 30일부터는 보안 수준이 낮은 앱의 액세스가 활성된 계정으로는 SMTP 서버를 이용할 수 없게 되었습니다. >> 2단계 인증 후 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+#          connectiontimeout: 5000
+#          timeout: 5000
+#          writetimeout: 5000
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure : error
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+# HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+# Secret 값은 특정 문자열을 Base64 로 인코딩한 값 사용 (아래 명령어를 터미널에 쳐보면 그대로 나옴)
+# $ echo 'spring-boot-security-jwt-tutorial-jiwoon-spring-boot-security-jwt-tutorial' | base64
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
